@@ -1,0 +1,80 @@
+<% if @cityEmpty %>
+  <div class="row">
+    <div class="col">
+      <div class="alert alert-danger" role="alert">
+        <p>City/ Town is required to display search results</p>
+      </div>
+    </div>
+  </div>  
+<% else %>
+  <% if @country.nil? %>
+  <h3 class="results-heading"> Searched for: <%= @city %></h3>
+  <% else %>
+    <h3 class="results-heading"><%= @city.split(',')[0] %>, <%= @country %></h3>
+  <% end %>
+  <div class="row">
+    <div class="col">
+      <% if @Open_Weather_Response.response.code == "200" %>
+        <div class="card">
+          <%= image_tag( "http://openweathermap.org/img/w/#{@Open_Weather_Response["weather"][0]["icon"]}.png", class: "card-img-top") %>
+          <div class="card-body">
+            <p class="card-text weather-temp">
+              <%= @Open_Weather_Response["main"]["temp"].round %> 
+              <span>&#8451;</span>
+            </p>
+            <p class="card-text weather-desc">
+              <%= @Open_Weather_Response["weather"][0]["main"] %>
+            </p>
+          </div>
+        </div>
+      <% else %>
+        <div class="card error">
+        <p><%= @Open_Weather_Response["message"] %><p>
+        </div>
+      <% end %> 
+      <p class="source-info">Source: <%= link_to "OpenWeatherMap", "https://openweathermap.org"%></p>
+    </div>
+    <div class="col">
+      <% if @APIXU_Response.response.code == "200" %>
+      <div class="card">
+        <%= image_tag( @APIXU_Response["current"]["condition"]["icon"], class: "card-img-top") %>
+        <div class="card-body">
+          <p class="card-text weather-temp">
+            <%= @APIXU_Response["current"]["temp_c"].round %>
+            <span>&#8451;</span>
+          </p>
+          <p class="card-text weather-desc">
+            <%= @APIXU_Response["current"]["condition"]["text"] %>
+          </p>
+        </div>
+      </div>
+      <% else %>
+        <div class="card error">
+        <p><%= @APIXU_Response["error"]["message"] %><p>
+        </div>
+      <% end %> 
+      <p class="source-info">Source: <%= link_to "APIXU", "https://www.apixu.com"%></p>
+    </div>
+    <div class="col">
+      <% if @WORLD_WEATHER_Response["data"]["error"].nil? %>
+        <div class="card">
+          <%= image_tag( @WORLD_WEATHER_Response["data"]["current_condition"][0]["weatherIconUrl"][0]["value"], class: "card-img-top") %>
+          <div class="card-body">
+            <p class="card-text weather-temp">
+              <%= @WORLD_WEATHER_Response["data"]["current_condition"][0]["temp_C"].to_i.round %>
+              <span>&#8451;</span>
+            </p>
+            <p class="card-text weather-desc">
+              <%= @WORLD_WEATHER_Response["data"]["current_condition"][0]["weatherDesc"][0]["value"] %>
+            </p>
+          </div>
+        </div>
+      <% else %>
+        <div class="card error">
+        <p><%= @APIXU_Response["error"]["message"] %><p>
+        </div>
+      <% end %> 
+      <p class="source-info">Source: <%= link_to "World Weather Online", "https://www.worldweatheronline.com"%></p>
+    </div>
+  </div>
+<% end %>

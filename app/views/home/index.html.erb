@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>Weather Results</h1>
+  <div class="search-section">
+    <%= form_tag(search_path, method: "post", remote: true) do %>
+      <div class="row">
+        <div class="col col-8">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <%= text_field_tag :city, params[:city], placeholder: "Enter city name...", class: "form-control" %>
+        </div>
+        <div class="col col-2">
+          <%= submit_tag "Search", class: "btn btn-outline-secondary search"%>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  <hr>
+  <div id="results-section">
+  </div>
+</div>
