@@ -29,7 +29,6 @@ class HomeController < ApplicationController
       #identity country by world bank country code
       if @APIXU_Response.response.code == "200"
         @country = @APIXU_Response["location"]["country"]
-        p @country
       end
 
     end
