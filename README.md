@@ -1,24 +1,14 @@
-# README
+# Weather APP README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To begin install the latest version of Ruby:
+  `rvm install "ruby-2.6.3"`
+  
+Install required gems
+  `bundle install`
+  
+Create config/application.yml and add API keys for:
+  * OPEN_WEATHER_APP_API_KEY: 
+  * APIXU_API_KEY: 
+  * WORLD_WEATHER_API_KEY: 
+  
+Run server using `rails s` and happy serching.
